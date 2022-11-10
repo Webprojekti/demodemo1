@@ -1,12 +1,10 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react'
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import React, { useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom';
 
-export default function EditUser() {
+export default function RegisterUser() {
 
     let navigate=useNavigate()
-
-    const {id}=useParams()
 
     const[user,setUser]=useState({
         name:"",
@@ -21,27 +19,18 @@ export default function EditUser() {
 
     };
 
-    useEffect(()=> {
-    loadUser();
-}, []);
-
     const onSubmit=async (e)=>{
         e.preventDefault();
-        await axios.put(`http://localhost:8080/user/${id}`,user)
+        await axios.post("http://localhost:8080/user",user)
         navigate("/");
 
     };
-
-    const loadUser =async ()=>{
-        const result=await axios.get(`http://localhost:8080/user/${id}`)
-        setUser(result.data)
-    }
 
     return (
         <div className='container'>
             <div className='row'>
                 <div className='col-md-6 offset-md-3 border rounded p-3 mt-4 shadow'>
-                    <h2 className='text-center'>Muokkaa tietoja</h2>
+                    <h2 className='text-center'>Rekisteröidy</h2>
 
                     <form onSubmit={(e) => onSubmit(e)}>
                     <div className='mb-3'>
